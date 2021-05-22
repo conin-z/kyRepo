@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.EmployeeDAO">
+
+    <resultMap id="map" type="com.example.bean.Employee">
+        <id column="id" property="id"></id>
+        <result column="empname" property="name"></result>
+        <result column="salary" property="salary"></result>
+        <result column="age" property="age"></result>
+        <result property="bir" column="bir"></result>    <!--这里不用 association 标签  for mysql date 可以直接转化-->
+    </resultMap>
+    <!--    查询所有-->
+    <select id="findAll" resultMap="map">
+        select * from t_emp
+    </select>
+
+    <!--    添加员工-->
+    <insert id="save" parameterType="com.example.bean.Employee">
+        insert into t_emp values (#{id},#{name},#{salary},#{age},#{bir})
+    </insert>
+
+    <!--    删除员工-->
+    <delete id="delete">
+        delete from t_emp where id=#{id}
+    </delete>
+
+    <!--    根据ID查询员工-->
+    <select id="find"  resultMap="map">
+        select * from t_emp where id=#{id}
+    </select>
+
+    <!--    修改员工-->
+    <update id="update" parameterType="com.example.bean.Employee">
+        update t_emp set empname=#{name},salary=#{salary},age=#{age},bir=#{bir} where id=#{id}
+    </update>
+</mapper>
